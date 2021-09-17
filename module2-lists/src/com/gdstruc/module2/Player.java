@@ -2,21 +2,25 @@ package com.gdstruc.module2;
 
 import java.util.Objects;
 
+//gives this class its attributes
 public class Player {
     private int id;
     private String name;
     private int level;
 
+    //connects variables to parameters
     public Player(int id, String name, int level) {
         this.id = id;
         this.name = name;
         this.level = level;
     }
 
+    //returns variable
     public int getId() {
         return id;
     }
 
+    //can filter out changes to variable
     public void setId(int id) {
         this.id = id;
     }
