@@ -3,6 +3,7 @@ package com.gdstruc.module2;
 public class PlayerNode {
     private Player player;
     private PlayerNode nextPlayer;
+    private PlayerNode previousPlayer;
 
     public PlayerNode(Player player) {
         this.player = player;
@@ -24,4 +25,11 @@ public class PlayerNode {
         this.nextPlayer = nextPlayer;
     }
 
+    public PlayerNode getPreviousPlayer() {
+        return previousPlayer;
+    }
+
+    public void setPreviousPlayer(PlayerNode previousPlayer) {
+        this.previousPlayer = previousPlayer;
+    }
 }
