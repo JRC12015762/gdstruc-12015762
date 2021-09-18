@@ -49,7 +49,7 @@ public class Main {
         System.out.println(indexOfResult);
 
         playerLinkedList.printList();
-//        playerLinkedList.printPrevious();
+
 
     }
 }
