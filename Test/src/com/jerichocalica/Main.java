@@ -9,6 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+        
+
+    }
+
+    public static void humanCommands () {
+
         TestHuman human1 = new TestHuman("Chris Chan", 69, 420); //just like a function ormethod
         TestHuman human2 = new TestHuman("Ben Dover", 123, 1000);
 

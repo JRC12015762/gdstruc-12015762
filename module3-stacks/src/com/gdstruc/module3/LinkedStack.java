@@ -30,7 +30,7 @@ public class LinkedStack {
     {
         ListIterator<Friends> iterator = stack.listIterator();
 
-        System.out.println("Printing stackL: ");
+        System.out.println("Printing stack: ");
         while (iterator.hasNext())
         {
             System.out.println(iterator.next());
