@@ -42,10 +42,7 @@ public class Cards {
 
     @Override
     public String toString() {
-        return "Cards{" +
-                "cardName='" + cardName + '\'' +
-                ", cardValue=" + cardValue +
-                '}';
+        return "{" + cardName + ", Card number: " + cardValue + '}';
     }
 
 }

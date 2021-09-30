@@ -7,11 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
 
+        int turnCounter = 0;
+
         Scanner scanner = new Scanner(System.in);
 
-        PlayerDeck playerDeck = new PlayerDeck(30);
-        PlayerHand playerHand = new PlayerHand(30);
-        DiscardPile discardPile = new DiscardPile(30);
+        PlayerDeck playerDeck = new PlayerDeck(10);
 
 //        Cards Circle1 = new Cards("1 of Circles", 1);
 //        Cards Circle2 = new Cards("2 of Circles", 2);
@@ -84,33 +84,37 @@ public class Main {
             switch (commandValue) {
                 case 0 -> { //draw cards
                     int randomDraw = rng.nextInt(5) + 1;
-                    System.out.println("You draw " + randomDraw + " cards!");
-                    drawLoop(randomDraw, playerDeck);
+                    System.out.println("You randomly draw " + randomDraw + " cards!");
+                    playerDeck.draw(randomDraw);
                 }
                 case 1 -> { //discard cards
                     int randomDiscard = rng.nextInt(5) + 1;
-                    System.out.println("You discard " + randomDiscard + " cards!");
+                    System.out.println("You randomly discard " + randomDiscard + " cards!");
+                    playerDeck.discard(randomDiscard);
                 }
                 case 2 -> { //get cards from discard pile
                     int randomRetrieve = rng.nextInt(5) + 1;
-                    System.out.println("You retrieve " + randomRetrieve + " cards!");
+                    System.out.println("You randomly retrieve " + randomRetrieve + " cards!");
+                    playerDeck.retrieve(randomRetrieve);
                 }
             }
 
-            playerDeck.peek();
-            System.out.println("Press Enter for next turn...");
+            playerDeck.displayInfo();
+            System.out.println("\nPress Enter for next turn...");
             new java.util.Scanner(System.in).nextLine(); //pauses console
 
+            if (playerDeck.getDeckTop() <= 0)
+            {
+                i--;
+            }
+
+            turnCounter++;
+
         }
 
-    }
+        System.out.println("End of program. All cards in the deck are gone.");
+        System.out.println("Number of turns taken: " + turnCounter);
 
-    public static void drawLoop(int randomDraw, PlayerDeck playerDeck) //draws cards a number of times based on randomDraw
-    {
-        for (int i = randomDraw; i >= 0; i--)
-        {
-            playerDeck.playerTransfer();
-        }
     }
 
 }

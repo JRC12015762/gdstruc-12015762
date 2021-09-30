@@ -3,25 +3,32 @@ import java.util.EmptyStackException;
 
 public class PlayerDeck { //array stack
 
-    private Cards[] stack;
+    private Cards[] deck;
+    private Cards[] hand;
+    private Cards[] discard;
     private int top;
-    PlayerHand playerHand = new PlayerHand(30);
+    private int handTop;
+    private int discardTop;
+    PlayerHand playerHand = new PlayerHand(10);
 
     public PlayerDeck(int capacity)
     {
-        stack = new Cards[capacity];
+        deck = new Cards[capacity];
+        hand = new Cards [capacity];
+        discard = new Cards [capacity];
     }
 
     public void push(Cards cards)
     {
-        if (top == stack.length) // if stack is full, resize array
+        if (top == deck.length) // if deck is full, resize array
         {
-            Cards[] newStack = new Cards[2 * stack.length];
-            System.arraycopy(stack, 0, newStack, 0, stack.length);
-            stack = newStack;
+            Cards[] newStack = new Cards[2 * deck.length];
+            System.arraycopy(deck, 0, newStack, 0, deck.length);
+            deck = newStack;
         }
 
-        stack[top++] = cards;
+        deck[top++] = cards;
+//        System.out.println(top);
     }
 
     public Cards pop()
@@ -31,8 +38,8 @@ public class PlayerDeck { //array stack
             throw new EmptyStackException();
         }
 
-        Cards poppedCards = stack[--top];
-        stack[top] = null;
+        Cards poppedCards = deck[--top];
+        deck[top] = null;
         return poppedCards;
     }
 
@@ -43,7 +50,7 @@ public class PlayerDeck { //array stack
             throw new EmptyStackException();
         }
 
-        return stack[top - 1];
+        return deck[top - 1];
     }
 
     public boolean isEmpty()
@@ -55,17 +62,143 @@ public class PlayerDeck { //array stack
     {
         for (int i = top - 1; i >= 0; i--)
         {
-            System.out.println(stack[i]);
+            System.out.println(deck[i]);
         }
     }
 
-    public Cards playerTransfer ()
+    public void draw (int randomDraw)
     {
 
-        playerHand.push(stack[top - 1]);
-        return pop();
+        while (randomDraw > top) //safety net in case it tries to get cards beyond what the deck has
+        {
+            randomDraw--;
+        }
+
+        for (int j = randomDraw; j > 0; j--) //runs a number of times according to randomDraw
+        {
+            if (handTop == hand.length) // if hand is full, resize array
+            {
+                Cards[] newStack = new Cards[2 * hand.length];
+                System.arraycopy(hand, 0, newStack, 0, hand.length);
+                hand = newStack;
+            }
+
+            hand[handTop++] = deck[top - 1]; //the first drawn card will be in hand[0]
+            pop();
+        }
 
     }
 
+    public void discard (int randomDiscard)
+    {
+
+        while (randomDiscard > handTop) //safety net in case it tries to get cards beyond what the deck has
+        {
+            randomDiscard--;
+        }
+
+        for (int j = randomDiscard; j > 0; j--) //runs a number of times according to randomDiscard
+        {
+            if (discardTop == discard.length) // if hand is full, resize array
+            {
+                Cards[] newStack = new Cards[2 * discard.length];
+                System.arraycopy(discard, 0, newStack, 0, discard.length);
+                discard = newStack;
+            }
+
+            discard[discardTop++] = hand[handTop - 1]; //the first drawn card will be in discard[0]
+            popHand();
+        }
+
+    }
+
+    public void retrieve (int randomRetrieve)
+    {
+
+        while (randomRetrieve > discardTop) //safety net in case it tries to get cards beyond what the deck has
+        {
+            randomRetrieve--;
+        }
+
+        for (int j = randomRetrieve; j > 0; j--) //runs a number of times according to randomRetrieve
+        {
+            if (handTop == hand.length) // if hand is full, resize array
+            {
+                Cards[] newStack = new Cards[2 * hand.length];
+                System.arraycopy(hand, 0, newStack, 0, hand.length);
+                hand = newStack;
+            }
+
+            hand[handTop++] = discard[discardTop - 1];
+            popDiscard();
+        }
+
+    }
+
+    public Cards peekHand()
+    {
+        if (isEmpty())
+        {
+            throw new EmptyStackException();
+        }
+
+        return hand[handTop - 1];
+    }
+
+    public Cards peekDiscard()
+    {
+        if (isEmpty())
+        {
+            throw new EmptyStackException();
+        }
+
+        return discard[discardTop - 1];
+    }
+
+    public Cards popHand()
+    {
+        if (isEmpty())
+        {
+            throw new EmptyStackException();
+        }
+
+        Cards poppedCards = hand[--handTop];
+        hand[handTop] = null;
+        return poppedCards;
+    }
+
+    public Cards popDiscard()
+    {
+        if (isEmpty())
+        {
+            throw new EmptyStackException();
+        }
+
+        Cards poppedCards = discard[--discardTop];
+        discard[discardTop] = null;
+        return poppedCards;
+    }
+
+    public void displayInfo ()
+    {
+
+        System.out.println("Current Hand: " + handTop);
+        for (int i = handTop; i > 0; i--)
+        {
+            int j = 0;
+            System.out.println(hand[i - 1]);
+        }
+
+        System.out.println("Cards in the deck: " + top);
+        System.out.println("Discarded cards: " + discardTop);
+
+    }
+
+    public int getDeckTop ()
+    {
+
+        return top;
+
+    }
 
 }
