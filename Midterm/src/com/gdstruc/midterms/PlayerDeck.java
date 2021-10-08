@@ -9,7 +9,6 @@ public class PlayerDeck { //array stack
     private int top;
     private int handTop;
     private int discardTop;
-    PlayerHand playerHand = new PlayerHand(10);
 
     public PlayerDeck(int capacity)
     {

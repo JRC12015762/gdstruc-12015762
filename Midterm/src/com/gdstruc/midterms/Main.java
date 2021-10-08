@@ -9,8 +9,6 @@ public class Main {
 
         int turnCounter = 0;
 
-        Scanner scanner = new Scanner(System.in);
-
         PlayerDeck playerDeck = new PlayerDeck(10);
 
 //        Cards Circle1 = new Cards("1 of Circles", 1);
