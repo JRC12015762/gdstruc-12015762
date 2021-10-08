@@ -53,10 +53,10 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "playerId=" + playerId +
-                ", userName='" + userName + '\'' +
-                ", level=" + level +
+        return "{" +
+                "Player's ID =" + playerId +
+                ", Player's Username ='" + userName + '\'' +
+                ", Player's Level =" + level +
                 '}';
     }
 }
