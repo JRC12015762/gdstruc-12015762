@@ -59,5 +59,14 @@ public class CardStack { //array stack
         }
     }
 
+    public Card[] getStack()
+    {
+        return stack;
+    }
+
+    public int getTop()
+    {
+        return top;
+    }
 
 }
