@@ -48,6 +48,7 @@ public class SimpleHashtable {
         }
     }
 
+    //this is deceptively easy, unless i'm being bamboozled
     public void remove(String key)
     {
         int hashedKey = findKey(key);
